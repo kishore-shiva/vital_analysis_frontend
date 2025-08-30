@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vitals Analysis — Clients</title>
+  <style>
+    :root {
+      --red: #b30000;
+      --border: #e6e6e6;
+      --text: #000;
+      --bg: #fff;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* Page is a vertical stack: header (20vh) + main (80vh) */
+    .page {
+      height: 100vh;
+      display: grid;
+      grid-template-rows: 20vh 80vh; /* EXACT requirement */
+      grid-template-columns: 100%;
+    }
+
+    /* Header: full-width bar */
+    header {
+      width: 99%;
+      border-bottom: 2px solid var(--red);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-left: 5px;
+    }
+    .brand {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    .brand .accent { color: var(--red); }
+
+    .btn {
+      border: 1px solid var(--red);
+      background: #fff;
+      color: var(--red);
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: .95rem;
+    }
+
+    /* Main list area: full width, scrollable vertically */
+    main {
+      width: 100%;
+      overflow: hidden;            /* contain child scroll area */
+      padding: 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .list-wrap {
+      width: 100%;
+      height: 100%;                /* fill the 80vh area */
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,.06);
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+    }
+
+    .list-head {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      background: #fafafa;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+    }
+
+    .scroll-area {
+      flex: 1 1 auto;              /* take all remaining height */
+      overflow-y: auto;            /* vertical scroll */
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    thead th {
+      text-align: left;
+      font-size: .92rem;
+      background: #fafafa;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0;    /* sticky header while scrolling */
+    }
+    tbody td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #f2f2f2;
+      font-size: .96rem;
+      color: #111;
+    }
+    tbody tr:hover { background: #fff5f5; } /* subtle red tint */
+
+    @media (max-width: 640px) {
+      .brand { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- 20% HEADER -->
+    <header>
+      <div class="brand">Vitals <span class="accent">Analysis</span></div>
+      <a href="index.html" class="btn" aria-label="Log out">Logout</a>
+    </header>
+
+    <!-- 80% LIST AREA -->
+    <main>
+      <section class="list-wrap" aria-labelledby="clientsHeading">
+        <div class="list-head">
+          <h2 id="clientsHeading" style="font-size:1rem;margin:0;">Clients</h2>
+          <span id="clientCount" style="font-weight:600;color:var(--red);">0</span>
+        </div>
+
+        <div class="scroll-area">
+          <table aria-describedby="clientsHeading">
+            <thead>
+              <tr>
+                <th scope="col">Client ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Body Weight (kg)</th>
+              </tr>
+            </thead>
+            <tbody id="clientsTableBody">
+              <!-- rows injected by clients.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="clients.js"></script>
+</body>
+</html>
